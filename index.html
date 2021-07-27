@@ -20,8 +20,11 @@
           0.1,
           1000
         );
+        camera.position.set(10, 10, 10);
+        camera.lookAt(scene.position);
 
         const renderer = new THREE.WebGLRenderer();
+        // renderer.setClearColor(0xeeeeee, 1);
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
@@ -30,13 +33,73 @@
         const cube = new THREE.Mesh(geometry, material);
         scene.add(cube);
 
+        let triangleGeom = new THREE.TetrahedronGeometry();
+        let triangleMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        let triangle = new THREE.Mesh(triangleGeom, triangleMaterial);
+        triangle.position.set(2, 0, 0);
+        scene.add(triangle);
+
+        let geoEsfera = new THREE.SphereGeometry(1, 20, 20);
+        let matEsfera = new THREE.MeshBasicMaterial({
+          color: 0x00ee00,
+          wireframe: false,
+        });
+        let esfera = new THREE.Mesh(geoEsfera, matEsfera);
+        esfera.position.set(0, 2, 0);
+        scene.add(esfera);
+
+        var axes = new THREE.AxesHelper(20);
+        scene.add(axes);
+
         camera.position.z = 5;
+
+        let praFrenteCubo = true;
+        let praFrenteTriang = true;
+        let praFrenteEsfera = true;
 
         function animate() {
           requestAnimationFrame(animate);
 
-          cube.rotation.x += 0.01;
-          cube.rotation.y += 0.01;
+          cube.rotation.x += 0.1;
+          cube.rotation.y += 0.1;
+          cube.rotation.z += 0.1;
+          triangle.rotation.z += 0.1;
+
+          if (praFrenteCubo == true) {
+            cube.position.z += 0.1;
+          } else {
+            cube.position.z -= 0.1;
+          }
+
+          if (praFrenteEsfera == true) {
+            esfera.position.y += 0.1;
+          } else {
+            esfera.position.y -= 0.1;
+          }
+
+          if (praFrenteTriang == true) {
+            triangle.position.x += 0.1;
+          } else {
+            triangle.position.x -= 0.1;
+          }
+
+          if (cube.position.z >= 10) {
+            praFrenteCubo = false;
+          } else if (cube.position.z <= 0) {
+            praFrenteCubo = true;
+          }
+
+          if (triangle.position.x >= 10) {
+            praFrenteTriang = false;
+          } else if (triangle.position.x <= 0) {
+            praFrenteTriang = true;
+          }
+
+          if (esfera.position.y >= 10) {
+            praFrenteEsfera = false;
+          } else if (esfera.position.y <= 0) {
+            praFrenteEsfera = true;
+          }
 
           renderer.render(scene, camera);
         }
