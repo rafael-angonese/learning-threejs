@@ -11,6 +11,7 @@
   </head>
   <body>
     <script src="js/three.js"></script>
+    <script src="js/dat.gui.js"></script>
     <script>
       function init() {
         const scene = new THREE.Scene();
@@ -48,7 +49,7 @@
         esfera.position.set(0, 2, 0);
         scene.add(esfera);
 
-        var axes = new THREE.AxesHelper(20);
+        let axes = new THREE.AxesHelper(20);
         scene.add(axes);
 
         camera.position.z = 5;
@@ -57,30 +58,52 @@
         let praFrenteTriang = true;
         let praFrenteEsfera = true;
 
+        document.addEventListener("mousedown", onDocMouseDown);
+        document.addEventListener("mousemove", onDocMouseMove);
+
+        let controls = new (function () {
+          this.rotationSpeed = 0.1;
+          this.translationSpeed = 0.1;
+          this.showRay = true;
+        })();
+
+        let gui = new dat.GUI({ autoplace: false, width: 600 });
+        gui.add(controls, "rotationSpeed", 0, 0.5);
+        gui.add(controls, "translationSpeed", 0, 0.5);
+
+        let i = 0;
+        let tube = [];
+
+        gui.add(controls, "showRay").onChange(function (event) {
+          for (let j = 0; j < tube.length; j++) {
+            scene.remove(tube[j]);
+          }
+        });
+
         function animate() {
           requestAnimationFrame(animate);
 
-          cube.rotation.x += 0.1;
-          cube.rotation.y += 0.1;
-          cube.rotation.z += 0.1;
-          triangle.rotation.z += 0.1;
+          cube.rotation.x += controls.rotationSpeed;
+          cube.rotation.y += controls.rotationSpeed;
+          cube.rotation.z += controls.rotationSpeed;
+          triangle.rotation.z += controls.rotationSpeed;
 
           if (praFrenteCubo == true) {
-            cube.position.z += 0.1;
+            cube.position.z += controls.translationSpeed;
           } else {
-            cube.position.z -= 0.1;
+            cube.position.z -= controls.translationSpeed;
           }
 
           if (praFrenteEsfera == true) {
-            esfera.position.y += 0.1;
+            esfera.position.y += controls.translationSpeed;
           } else {
-            esfera.position.y -= 0.1;
+            esfera.position.y -= controls.translationSpeed;
           }
 
           if (praFrenteTriang == true) {
-            triangle.position.x += 0.1;
+            triangle.position.x += controls.translationSpeed;
           } else {
-            triangle.position.x -= 0.1;
+            triangle.position.x -= controls.translationSpeed;
           }
 
           if (cube.position.z >= 10) {
@@ -103,6 +126,105 @@
 
           renderer.render(scene, camera);
         }
+
+        function onDocMouseDown(event) {
+          let xDoMouse = event.clientX;
+          let yDoMouse = event.clientY;
+
+          //agora precisamos converter
+          //o x e y de tela do mouse em
+          //coordenadas de mundo
+
+          //normalizar x e y do mouse
+          xDoMouse = (xDoMouse / window.innerWidth) * 2 - 1;
+          yDoMouse = -(yDoMouse / window.innerHeight) * 2 + 1;
+
+          let vectorClick = new THREE.Vector3(xDoMouse, yDoMouse, 1);
+
+          //converte de coordenadas de tela normalizada (-1 a +1) para coordenadas de mundo
+          vectorClick = vectorClick.unproject(camera);
+
+          //raycasting: traça um raio de um ponto a outro, verificando se colide
+          //com algum objeto
+          let raycaster = new THREE.Raycaster(
+            camera.position,
+            vectorClick.sub(camera.position).normalize()
+          );
+
+          //chamar a função que "testa" se o raio colidiu com algum
+          //objeto
+          let intersects = raycaster.intersectObjects([cube, triangle, esfera]);
+
+          //se o vetor não for vazio, houve interseção do raio com algum objeto
+          if (intersects.length > 0) {
+            //houve uma colisão, torne o objeto clicado transparente
+            intersects[0].object.material.transparent = true;
+            intersects[0].object.material.opacity = 0.1;
+          }
+        }
+
+        function onDocMouseMove(event) {
+          if (controls.showRay) {
+            let xDoMouse = event.clientX;
+            let yDoMouse = event.clientY;
+
+            //agora precisamos converter
+            //o x e y de tela do mouse em
+            //coordenadas de mundo
+
+            //normalizar x e y do mouse
+            xDoMouse = (xDoMouse / window.innerWidth) * 2 - 1;
+            yDoMouse = -(yDoMouse / window.innerHeight) * 2 + 1;
+
+            let vectorClick = new THREE.Vector3(xDoMouse, yDoMouse, 1);
+
+            //converte de coordenadas de tela normalizada (-1 a +1) para coordenadas de mundo
+            vectorClick = vectorClick.unproject(camera);
+
+            //raycasting: traça um raio de um ponto a outro, verificando se colide
+            //com algum objeto
+            let raycaster = new THREE.Raycaster(
+              camera.position,
+              vectorClick.sub(camera.position).normalize()
+            );
+
+            //chamar a função que "testa" se o raio colidiu com algum
+            //objeto
+            let intersects = raycaster.intersectObjects([
+              cube,
+              triangle,
+              esfera,
+            ]);
+
+            //se o vetor não for vazio, houve interseção do raio com algum objeto
+            if (intersects.length > 0) {
+                let points = [];
+                points.push(new THREE.Vector2(0, 0)); //origem do tubo
+                points.push(intersects[0].point);
+
+                const geomtry1 = new THREE.BufferGeometry().setFromPoints(points);
+
+                const material1 = new THREE.LineBasicMaterial({
+                  color: 0xff0000,
+                });
+
+                const splineObject = new THREE.Line(geomtry1, material1);
+
+                tube.push(splineObject);
+
+                if (tube.length == 1) scene.add(tube[0]);
+                else if (tube.length > 1) {
+                  ultimoTuboCriado = tube[tube.length - 1];
+                  for (let j = 0; j < tube.length; j++) {
+                    scene.remove(tube[j]);
+                    tube.splice(0, tube.length - 1);
+                  }
+                  scene.add(ultimoTuboCriado);
+                }
+            }
+          }
+        }
+
         animate();
       }
 
