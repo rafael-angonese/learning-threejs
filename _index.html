@@ -198,29 +198,29 @@
 
             //se o vetor não for vazio, houve interseção do raio com algum objeto
             if (intersects.length > 0) {
-                let points = [];
-                points.push(new THREE.Vector2(0, 0)); //origem do tubo
-                points.push(intersects[0].point);
+              let points = [];
+              points.push(new THREE.Vector2(0, 0)); //origem do tubo
+              points.push(intersects[0].point);
 
-                const geomtry1 = new THREE.BufferGeometry().setFromPoints(points);
+              const geomtry1 = new THREE.BufferGeometry().setFromPoints(points);
 
-                const material1 = new THREE.LineBasicMaterial({
-                  color: 0xff0000,
-                });
+              const material1 = new THREE.LineBasicMaterial({
+                color: 0xff0000,
+              });
 
-                const splineObject = new THREE.Line(geomtry1, material1);
+              const splineObject = new THREE.Line(geomtry1, material1);
 
-                tube.push(splineObject);
+              tube.push(splineObject);
 
-                if (tube.length == 1) scene.add(tube[0]);
-                else if (tube.length > 1) {
-                  ultimoTuboCriado = tube[tube.length - 1];
-                  for (let j = 0; j < tube.length; j++) {
-                    scene.remove(tube[j]);
-                    tube.splice(0, tube.length - 1);
-                  }
-                  scene.add(ultimoTuboCriado);
+              if (tube.length == 1) scene.add(tube[0]);
+              else if (tube.length > 1) {
+                ultimoTuboCriado = tube[tube.length - 1];
+                for (let j = 0; j < tube.length; j++) {
+                  scene.remove(tube[j]);
+                  tube.splice(0, tube.length - 1);
                 }
+                scene.add(ultimoTuboCriado);
+              }
             }
           }
         }
