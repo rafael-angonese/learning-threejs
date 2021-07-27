@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>My first three.js app</title>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="../js/three.js"></script>
+    <script src="../js/dat.gui.js"></script>
+    <script>
+      function init() {
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+        );
+        camera.position.set(10, 5, 10);
+        camera.lookAt(scene.position);
+
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // const geometry = new THREE.BoxGeometry();
+        // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        // const cube = new THREE.Mesh(geometry, material);
+        // scene.add(cube);
+
+        let axes = new THREE.AxesHelper(20);
+        scene.add(axes);
+
+        camera.position.z = 5;
+
+        let saturn, ring;
+        function addSaturn() {
+          let geometry = new THREE.SphereGeometry(1, 20, 20);
+          let texture = new THREE.TextureLoader().load(
+            "../textures/saturnmap.jpg"
+          );
+          let material = new THREE.MeshBasicMaterial({ map: texture });
+          saturn = new THREE.Mesh(geometry, material);
+          scene.add(saturn);
+
+          let ring_geometry = new THREE.TorusGeometry(2, 0.4, 2, 50);
+          let ring_texture = new THREE.TextureLoader().load(
+            "../textures/ring_saturnmap.jpg"
+          );
+          let ring_material = new THREE.MeshBasicMaterial({
+            map: ring_texture,
+          });
+          ring = new THREE.Mesh(ring_geometry, ring_material);
+          ring.rotation.x = 89.5;
+          scene.add(ring);
+        }
+
+        let earth;
+        function addEarth() {
+          let geometry = new THREE.SphereGeometry(1, 20, 20);
+          let texture = new THREE.TextureLoader().load(
+            "../textures/earthmap.jpg"
+          );
+          let material = new THREE.MeshBasicMaterial({ map: texture });
+          earth = new THREE.Mesh(geometry, material);
+          scene.add(earth);
+        }
+
+        let sun;
+        function addSun() {
+          let geometry = new THREE.SphereGeometry(2, 20, 20);
+          let texture = new THREE.TextureLoader().load(
+            "../textures/sunmap.jpg"
+          );
+          let material = new THREE.MeshBasicMaterial({ map: texture });
+          sun = new THREE.Mesh(geometry, material);
+          scene.add(sun);
+        }
+
+        let saturnDirection = true;
+        function animate() {
+          requestAnimationFrame(animate);
+
+          saturn.rotation.y += 0.1;
+          ring.rotation.z -= 0.1;
+
+          earth.rotation.y += 0.1;
+          sun.rotation.y += 0.1;
+
+          if (saturnDirection == true) {
+            saturn.position.z += 0.1;
+            ring.position.z += 0.1;
+
+            earth.position.x += 0.1;
+          } else {
+            saturn.position.z -= 0.1;
+            ring.position.z -= 0.1;
+
+            earth.position.x -= 0.1;
+          }
+
+          if (saturn.position.z >= 8) {
+            saturnDirection = false;
+          } else if (saturn.position.z <= 0) {
+            saturnDirection = true;
+          }
+
+          renderer.render(scene, camera);
+        }
+
+        addSaturn();
+        addEarth();
+        addSun();
+        animate();
+      }
+
+      window.onload = init;
+    </script>
+  </body>
+</html>
