@@ -2,8 +2,34 @@
 
 ---
 
+<div align="center">
+
+Primeiro Exemplo
+
+<details>
+<summary>Clique para visualizar</summary>
 <img alt="index" src=".github/animation.gif">
+</details>
+
+---
+
+Planetas Exemplo
+
+<details>
+<summary>Clique para visualizar</summary>
 <img alt="index" src=".github/planets.gif">
+</details>
+
+---
+
+Anel Exemplo
+
+<details open>
+<summary>Clique para visualizar</summary>
+<img alt="index" src=".github/ring.gif">
+</details>
+
+</div>
 
 ---
 
@@ -35,9 +61,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - Se você carregar modelos ou texturas de arquivos externos, devido às restrições de segurança da política de origem dos navegadores , o carregamento de um sistema de arquivos falhará com uma exceção de segurança.
 
-- Podemos resolver esta questão de algumas formas, você pode ver mais sobre isso em: [How to run things locally](https://threejs.org/docs/index.html#manual/en/introduction/How-to-run-things-locally)
+- Podemos resolver esta questão de algumas formas, você pode ver mais sobre isso em: [How to run things locally](https://threejs.org/docs/index.html#manual/en/introduction/How-to-run-things-locally).
 
-- Optei por rodar um servidor local com: Node.js five-server
+- Optei por rodar um servidor local com: Node.js five-server.
 
 ```bash
 node --version
@@ -51,8 +77,13 @@ npm -g i five-server
 ## **🚀 Como executar**
 
 - Clone o repositório.
-- Para códigos com texturas, você precisa rodar um servidor local, veja mais em: [How to run things locally](https://threejs.org/docs/index.html#manual/en/introduction/How-to-run-things-locally)
+- Para códigos com texturas, você precisa rodar um servidor local, veja mais em: [How to run things locally](https://threejs.org/docs/index.html#manual/en/introduction/How-to-run-things-locally).
 - Inicie o servidor com `five-server . -p 8000`.
+
+```bash
+five-server . -p 8000
+```
+
 - O app estará disponível no seu browser pelo endereço [`localhost:5500`](http://localhost:5500).
 - Para códigos sem texturas você pode abrir o arquivo index.html no seu navegador diretamente.
 
