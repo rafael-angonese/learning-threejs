@@ -10,8 +10,8 @@
     </style>
   </head>
   <body>
-    <script src="../js/three.js"></script>
-    <script src="../js/dat.gui.js"></script>
+    <script src="js/three.js"></script>
+    <script src="js/dat.gui.js"></script>
     <script>
       function init() {
         const scene = new THREE.Scene();
@@ -42,7 +42,7 @@
         function addSaturn() {
           let geometry = new THREE.SphereGeometry(1, 20, 20);
           let texture = new THREE.TextureLoader().load(
-            "../textures/saturnmap.jpg"
+            "textures/saturnmap.jpg"
           );
           let material = new THREE.MeshBasicMaterial({ map: texture });
           saturn = new THREE.Mesh(geometry, material);
@@ -50,7 +50,7 @@
 
           let ring_geometry = new THREE.TorusGeometry(2, 0.4, 2, 50);
           let ring_texture = new THREE.TextureLoader().load(
-            "../textures/ring_saturnmap.jpg"
+            "textures/ring_saturnmap.jpg"
           );
           let ring_material = new THREE.MeshBasicMaterial({
             map: ring_texture,
@@ -63,9 +63,7 @@
         let earth;
         function addEarth() {
           let geometry = new THREE.SphereGeometry(1, 20, 20);
-          let texture = new THREE.TextureLoader().load(
-            "../textures/earthmap.jpg"
-          );
+          let texture = new THREE.TextureLoader().load("textures/earthmap.jpg");
           let material = new THREE.MeshBasicMaterial({ map: texture });
           earth = new THREE.Mesh(geometry, material);
           scene.add(earth);
@@ -74,9 +72,7 @@
         let sun;
         function addSun() {
           let geometry = new THREE.SphereGeometry(2, 20, 20);
-          let texture = new THREE.TextureLoader().load(
-            "../textures/sunmap.jpg"
-          );
+          let texture = new THREE.TextureLoader().load("textures/sunmap.jpg");
           let material = new THREE.MeshBasicMaterial({ map: texture });
           sun = new THREE.Mesh(geometry, material);
           scene.add(sun);

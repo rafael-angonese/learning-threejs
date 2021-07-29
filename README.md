@@ -17,7 +17,7 @@ Este projeto tem como intuito aprender sobre a biblioteca Threejs.
 
 JavaScript 3D library.
 
-Three.js é uma biblioteca JavaScript/API cross-browser usada para criar e mostrar gráficos 3D animados em um navegador web. Three.js usa WebGL. O código-fonte é hospedado em um repositório no GitHub - [Threejs](https://threejs.org/).
+Three.js é uma biblioteca JavaScript/API cross-browser usada para criar e mostrar gráficos 3D animados em um navegador web. Three.js usa WebGL. O código-fonte é hospedado em um repositório no GitHub - [Threejs](https://github.com/mrdoob/three.js).
 
 ---
 
