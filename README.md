@@ -13,7 +13,7 @@ Primeiro Exemplo
 
 ---
 
-Planetas Exemplo
+Planetas
 
 <details>
 <summary>Clique para visualizar</summary>
@@ -22,7 +22,7 @@ Planetas Exemplo
 
 ---
 
-Anel Exemplo
+Anel
 
 <details open>
 <summary>Clique para visualizar</summary>
