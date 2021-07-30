@@ -4,7 +4,7 @@
 
 <div align="center">
 
-Primeiro Exemplo
+Primeiro Exemplo 🟩🟢🔺
 
 <details>
 <summary>Clique para visualizar</summary>
@@ -13,7 +13,7 @@ Primeiro Exemplo
 
 ---
 
-Planetas
+Planetas 🪐🌞🌎
 
 <details>
 <summary>Clique para visualizar</summary>
@@ -22,20 +22,19 @@ Planetas
 
 ---
 
-Anel
+Anel ⭕️
 
 <details open>
 <summary>Clique para visualizar</summary>
 <img alt="index" src=".github/ring.gif">
 </details>
 
-</div>
 
 ---
 
-Esfera
+Esfera 🔮
 
-<details open>
+<details>
 <summary>Clique para visualizar</summary>
 <img alt="index" src=".github/sphere.gif">
 </details>
