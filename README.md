@@ -33,6 +33,17 @@ Anel
 
 ---
 
+Esfera
+
+<details open>
+<summary>Clique para visualizar</summary>
+<img alt="index" src=".github/sphere.gif">
+</details>
+
+</div>
+
+---
+
 ## ☂️ **Sobre**
 
 Este projeto tem como intuito aprender sobre a biblioteca Threejs.
