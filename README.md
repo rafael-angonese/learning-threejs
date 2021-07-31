@@ -39,6 +39,15 @@ Esfera 🔮
 <img alt="index" src=".github/sphere.gif">
 </details>
 
+---
+
+Scroll Suave e Raycasting ✨
+
+<details>
+<summary>Clique para visualizar</summary>
+<img alt="index" src=".github/smooth_scroll.gif">
+</details>
+
 </div>
 
 ---
