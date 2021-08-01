@@ -41,11 +41,20 @@ Esfera 🔮
 
 ---
 
-Scroll Suave e Raycasting ✨
+Scroll Suave e Raycasting 🎨
 
 <details>
 <summary>Clique para visualizar</summary>
 <img alt="index" src=".github/smooth_scroll.gif">
+</details>
+
+---
+
+Partículas ✨☄️
+
+<details>
+<summary>Clique para visualizar</summary>
+<img alt="index" src=".github/particles.gif">
 </details>
 
 </div>
