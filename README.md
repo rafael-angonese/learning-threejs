@@ -63,7 +63,7 @@ Partículas ✨☄️
 
 ## ☂️ **Sobre**
 
-Este projeto tem como intuito aprender sobre a biblioteca Threejs. teste on new ubuntu commit2
+Este projeto tem como intuito aprender sobre a biblioteca Threejs. teste on new ubuntu commit3
 
 ---
 
